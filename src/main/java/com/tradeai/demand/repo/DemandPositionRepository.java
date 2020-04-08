@@ -1,5 +1,8 @@
 package com.tradeai.demand.repo;
 
+
+
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -14,5 +17,7 @@ public interface DemandPositionRepository extends CrudRepository<DemandPosition,
 	public Integer getDemandBatchId(); 
 	
 	public List<DemandPosition> findByBatchId(Integer batchId);
+	
+	public List<DemandPosition> findByClientIdAndDateOfDemand(String clientId, Date dateOfDemand);
 
 }
