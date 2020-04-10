@@ -8,9 +8,9 @@ import lombok.Setter;
 
 public class DemandPositionResponse {
 	
-	private Integer batchId;
+	private Integer demandId;
 
-	private Integer postionId;
+	private Integer batchId;
 
 	private String clientId;
 

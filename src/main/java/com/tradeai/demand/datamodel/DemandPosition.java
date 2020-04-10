@@ -16,16 +16,18 @@ import lombok.Setter;
 
 @Entity
 @Table (name = "demand", schema = "demand")
-@IdClass(DemandPositionId.class)
+
+
 public class DemandPosition {
 	
-	@Id
+
+
 	@Column (name = "batch_id")
 	private Integer batchId;
 	
 	@Id
-	@Column (name = "position_id")
-	private Integer postionId;
+	@Column (name = "demand_id")
+	private Integer demandId;
 	
 	@Column (name = "client_id")
 	private String clientId;

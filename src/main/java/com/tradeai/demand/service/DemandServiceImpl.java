@@ -48,23 +48,29 @@ public class DemandServiceImpl implements DemandService {
 		List<DemandPosition> toSave = new ArrayList<>();
 
 		Integer batchId = repository.getDemandBatchId();
+		
+		Integer postionId = repository.getDemandId();
 
-		if (batchId != null) {
-			batchId = batchId + 1;
+		if (batchId == null) {
+			batchId = 0;
 		}
+		
+		batchId = batchId + 1;
 
-		else {
-			batchId = 1;
-		}
 
-		Integer postionId = 0;
+
+		if  (postionId == null )
+			postionId = 0 ;
+
+
+
 
 		for (DemandPositionDTO postionFromDTO : postions) {
 
 			postionId = postionId + 1;
 
+			postionFromDTO.setDemandId(postionId);
 			postionFromDTO.setBatchId(batchId);
-			postionFromDTO.setPostionId(postionId);
 			DemandPosition postion = mapper.map(postionFromDTO, DemandPosition.class);
 			toSave.add(postion);
 

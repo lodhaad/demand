@@ -24,112 +24,94 @@ import com.tradeai.demand.output.DemandPositionResponse;
 import com.tradeai.demand.service.DemandService;
 
 @RestController
-@RequestMapping ("/demand")
+@RequestMapping("/demand")
 public class DemandPositionController {
-	
+
 	@Autowired
 	private DemandService service;
-	
+
 	@Autowired
 	private ModelMapper mapper;
-	
-	@GetMapping(path="/{batchId}")
+
+	@GetMapping(path = "/{batchId}")
 	public ResponseEntity<List<DemandPositionResponse>> getDemandByBatchId(@PathVariable String batchId) {
-		
+
 		Integer batchIdInt = Integer.parseInt(batchId);
-		
+
 		List<DemandPositionDTO> list = service.getPositionsForBatch(batchIdInt);
+
+		List<DemandPositionResponse> response = new ArrayList<DemandPositionResponse>();
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
-		List<DemandPositionResponse>  response = new ArrayList<DemandPositionResponse>();
-		
-		//ModelMapper mapper =new ModelMapper();
-		
-		list.forEach(element -> {
+
+		for(DemandPositionDTO resonseElement : list ) {
+			DemandPositionResponse responseEle = new DemandPositionResponse();
+			responseEle.setDemandId(resonseElement.getDemandId());
+			responseEle.setSecurityId(resonseElement.getSecurityId());
 			
-			DemandPositionResponse responseElement = mapper.map(element,DemandPositionResponse.class);
-			response.add(responseElement);
 			
-		});
-		
-		
-		
-		
+			
+		}
+
 		return new ResponseEntity<List<DemandPositionResponse>>(response, HttpStatus.OK);
 	}
-	
-	@GetMapping (path = "/health")
-	
+
+	@GetMapping(path = "/health")
+
 	public String health() {
 		return "running ";
 	}
-	
-	
-	@GetMapping(path="/client/{clientId}/date/{dateOfLoad}")
+
+	@GetMapping(path = "/client/{clientId}/date/{dateOfLoad}")
 	public ResponseEntity<List<DemandPositionResponse>> getDemandByClientAndDate(@PathVariable String clientId,
 			@PathVariable String dateOfLoad) throws ParseException {
-		
 
-		
-
-		
 		List<DemandPositionDTO> list = service.getDemandPostionByClientIdAndDateOfDemand(clientId, dateOfLoad);
-		
-		List<DemandPositionResponse>  response = new ArrayList<DemandPositionResponse>();
-		
-		//ModelMapper mapper =new ModelMapper();
-		
+
+		List<DemandPositionResponse> response = new ArrayList<DemandPositionResponse>();
+
+		// ModelMapper mapper =new ModelMapper();
+
 		list.forEach(element -> {
-			
-			DemandPositionResponse responseElement = mapper.map(element,DemandPositionResponse.class);
+
+			DemandPositionResponse responseElement = mapper.map(element, DemandPositionResponse.class);
 			response.add(responseElement);
-			
+
 		});
-		
-		
-		
-		
+
 		return new ResponseEntity<List<DemandPositionResponse>>(response, HttpStatus.OK);
 	}
-	
-	
-	@PostMapping(path="/client/{clientId}/date/{dateOfLoad}")
-	public ResponseEntity<List<DemandPositionResponse>> storeClientLoad(@Valid @RequestBody 
-			List<DemandRequest> listOfRequests ) {
-		
+
+	@PostMapping(path = "/client/{clientId}/date/{dateOfLoad}")
+	public ResponseEntity<List<DemandPositionResponse>> storeClientLoad(
+			@Valid @RequestBody List<DemandRequest> listOfRequests) {
+
 		List<DemandPositionDTO> dtoList = new ArrayList<>();
-		
+
 		listOfRequests.forEach(element -> {
-			
+
 			DemandPositionDTO dtoElement = mapper.map(element, DemandPositionDTO.class);
 			dtoList.add(dtoElement);
 
-			
-			
 		});
-		
-		List<DemandPositionDTO>  storedList = service.storePositionBatch(dtoList);
-		
-		List<DemandPositionResponse>  response = new ArrayList<DemandPositionResponse>();
-		
-		//ModelMapper mapper =new ModelMapper();
-		
+
+		List<DemandPositionDTO> storedList = service.storePositionBatch(dtoList);
+
+		List<DemandPositionResponse> response = new ArrayList<DemandPositionResponse>();
+
+
+
+
 		storedList.forEach(element -> {
-			
-			DemandPositionResponse responseElement = mapper.map(element,DemandPositionResponse.class);
+
+			DemandPositionResponse responseElement = mapper.map(element, DemandPositionResponse.class);
 			response.add(responseElement);
-			
+
 		});
-		
 
-
-		
 		return new ResponseEntity<List<DemandPositionResponse>>(response, HttpStatus.OK);
-	
+
 	}
-	
-	
-	
-		
-	
 
 }

@@ -1,6 +1,6 @@
 package com.tradeai.demand.dto;
 
-import java.sql.Date;
+import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,9 +11,9 @@ import lombok.Setter;
 
 public class DemandPositionDTO {
 
-	private Integer batchId;
+	private Integer demandId;
 
-	private Integer postionId;
+	private Integer batchId;
 
 	private String clientId;
 
