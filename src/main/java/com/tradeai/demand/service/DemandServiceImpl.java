@@ -65,13 +65,25 @@ public class DemandServiceImpl implements DemandService {
 
 
 
+			
+
 		for (DemandPositionDTO postionFromDTO : postions) {
 
 			postionId = postionId + 1;
 
 			postionFromDTO.setDemandId(postionId);
 			postionFromDTO.setBatchId(batchId);
-			DemandPosition postion = mapper.map(postionFromDTO, DemandPosition.class);
+			
+			
+			DemandPosition postion = new DemandPosition();
+			postion.setDemandId(postionId);
+			postion.setBatchId(batchId);
+			postion.setClientId(postionFromDTO.getClientId());
+			postion.setSecurityId(postionFromDTO.getSecurityId());
+			postion.setDateOfDemand(java.sql.Date.valueOf(postionFromDTO.getDateOfDemand()));
+			postion.setSettlementDate(java.sql.Date.valueOf(postionFromDTO.getDateOfDemand()));
+			postion.setQuantity(postionFromDTO.getQuantity());
+			
 			toSave.add(postion);
 
 		}

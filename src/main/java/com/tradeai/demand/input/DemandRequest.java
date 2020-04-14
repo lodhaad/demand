@@ -1,5 +1,7 @@
 package com.tradeai.demand.input;
 
+
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,6 +9,8 @@ import lombok.Setter;
 @Getter
 
 public class DemandRequest {
+	
+	
 	
 	private String clientId;
 
@@ -19,5 +23,10 @@ public class DemandRequest {
 	private String settlementDate;
 
 	private Double clientDemandConversionPercentage;
+	
+
+
+	
+	
 
 }

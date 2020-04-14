@@ -1,5 +1,7 @@
 package com.tradeai.demand.dto;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import lombok.Getter;
@@ -26,5 +28,30 @@ public class DemandPositionDTO {
 	private Date settlementDate;
 
 	private Double clientDemandConversionPercentage;
+	
+	
+	private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	
+	
+	public void setDateOfDemand(String date) throws ParseException {
+		
+		dateOfDemand = format.parse(date);
+	}
+	
+	public String getDateOfDemand() { 
+		return format.format(dateOfDemand);
+	}
+	
+	
+public void setSettlementDate(String date) throws ParseException {
+		
+	settlementDate = format.parse(date);
+	}
+	
+	public String getSettlementDate() { 
+		return format.format(settlementDate);
+	}
+	
+	
 
 }

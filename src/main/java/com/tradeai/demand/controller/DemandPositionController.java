@@ -85,16 +85,23 @@ public class DemandPositionController {
 
 	@PostMapping(path = "/client/{clientId}/date/{dateOfLoad}")
 	public ResponseEntity<List<DemandPositionResponse>> storeClientLoad(
-			@Valid @RequestBody List<DemandRequest> listOfRequests) {
+			@Valid @RequestBody List<DemandRequest> listOfRequests) throws ParseException {
 
 		List<DemandPositionDTO> dtoList = new ArrayList<>();
 
-		listOfRequests.forEach(element -> {
+		for (DemandRequest request : listOfRequests) {
+			
+			DemandPositionDTO dto = new DemandPositionDTO();
+			dto.setClientId(request.getClientId());
+			dto.setSecurityId(request.getSecurityId());
+			dto.setQuantity(request.getQuantity());
+			dto.setDateOfDemand(request.getDateOfDemand());
+			dto.setSettlementDate(request.getDateOfDemand());
 
-			DemandPositionDTO dtoElement = mapper.map(element, DemandPositionDTO.class);
-			dtoList.add(dtoElement);
 
-		});
+			dtoList.add(dto);
+
+		};
 
 		List<DemandPositionDTO> storedList = service.storePositionBatch(dtoList);
 
