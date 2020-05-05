@@ -56,6 +56,44 @@ public class DemandPositionController {
 
 		return new ResponseEntity<List<DemandPositionResponse>>(response, HttpStatus.OK);
 	}
+	
+	
+	
+	
+	@GetMapping(path = "/client/{clientId}/security/{secId}/settlement-date/{settlementDate}")
+	
+	public ResponseEntity<List<DemandPositionResponse>> getDemandByClientAndSecurityAndSettlementDate(
+			@PathVariable String clientId,
+			@PathVariable String secId,
+			@PathVariable String settlementDate
+			
+			) {
+		
+
+		List<DemandPositionDTO> list = service.getDemandByClientSecurityAndSettlementDate(clientId, settlementDate, secId);
+
+
+
+		List<DemandPositionResponse> response = new ArrayList<DemandPositionResponse>();
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+
+		for(DemandPositionDTO resonseElement : list ) {
+			DemandPositionResponse responseEle = new DemandPositionResponse();
+			responseEle.setDemandId(resonseElement.getDemandId());
+			responseEle.setSecurityId(resonseElement.getSecurityId());
+			
+			
+			
+		}
+
+		return new ResponseEntity<List<DemandPositionResponse>>(response, HttpStatus.OK);
+	}
+
+	
+	
+	
 
 	@GetMapping(path = "/health")
 
@@ -82,6 +120,8 @@ public class DemandPositionController {
 
 		return new ResponseEntity<List<DemandPositionResponse>>(response, HttpStatus.OK);
 	}
+	
+	
 
 	@PostMapping(path = "/client/{clientId}/date/{dateOfLoad}")
 	public ResponseEntity<List<DemandPositionResponse>> storeClientLoad(

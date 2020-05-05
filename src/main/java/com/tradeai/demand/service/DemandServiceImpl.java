@@ -131,4 +131,11 @@ public class DemandServiceImpl implements DemandService {
 		return demandPostionsDTO;
 	}
 
+	@Override
+	public List<DemandPositionDTO> getDemandByClientSecurityAndSettlementDate(String clientId, String settlementDate,
+			String securityId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

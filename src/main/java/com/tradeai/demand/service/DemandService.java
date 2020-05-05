@@ -14,6 +14,10 @@ public interface DemandService {
 	
 	public List<DemandPositionDTO> storePositionBatch(List<DemandPositionDTO> postions );
 	
-	public List<DemandPositionDTO> getDemandPostionByClientIdAndDateOfDemand(String clientId, String dateOfLoad);
+	public List<DemandPositionDTO> getDemandPostionByClientIdAndDateOfDemand(String clientId, 
+			String dateOfLoad);
+	
+	public List <DemandPositionDTO> getDemandByClientSecurityAndSettlementDate (String clientId, 
+			String settlementDate, String securityId);
 
 }
